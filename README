@@ -1,0 +1,15 @@
+alpine 用にビルドされた OpenRTM-aist です。
+ｰ omniORB
+  /opt/omniorb を /usr/local にコピーして使ってください。
+- OpenRTM-aist
+  /opt/openrtm を /opt や /usr の適当な箇所にコピーして使ってください。
+  .so の置き場にパスを通す必要があることに注意してください。
+  /usr/local/lib はデフォルトでパスが通っています。
+
+例:
+FROM kuroseaist/openrtm-alpine:latest as openrtm
+FROM alpine:3.10
+COPY --from=openrtm /opt/omniorb /usr/local
+COPY --from=openrtm /opt/openrtm /opt/openrtm
+ENV LD_LIBRARY_PATH=/opt/openrtm/lib
+...
